@@ -25,14 +25,9 @@ function Student(name, age) {
     this.marks = [];
 };
 
-Group.prototype = Array.prototype;
-// function Group(...name) {
-//     this.name = name
-// };
+Group.prototype = Object.create(Array.prototype);
 
 function Group() {
-    // this.push.apply(this, [arguments]);
-    // this.push.call(this, arguments);
     this.push.apply(this, arguments);
 };
 
@@ -82,30 +77,9 @@ Group.prototype.sortStudentName = function() {
 };
 
 Group.prototype.sortStudentMarks = function () {
-    let sortMarks = group.map(function (student) {
-        return {
-            name: student.name,
-            age: student.age,
-            marks: student.marks,
-            averag: student.marks.reduce(function (sum, num) {
-                return num ? sum + num : sum
-            }) / student.marks.length
-        };
-    });
-
-    sortMarks.sort(function (a, b) {
-        return b.averag - a.averag
-    });
-
-    removeAveragesortMarks = sortMarks.map(function (ele) {
-        return {
-            name: ele.name,
-            age: ele.age,
-            marks: ele.marks
-        }
+    return this.sort(function(a, b) {
+        return b.averageMarksStudentName() > a.averageMarksStudentName() ? 1 : -1;
     })
-
-    return removeAveragesortMarks
 };
 
 
